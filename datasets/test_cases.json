@@ -1,0 +1,17 @@
+[
+  {
+    "id": "ai-agent-basics",
+    "question": "What is an AI Agent?",
+    "reference": "An AI Agent is a software system that can understand goals, reason over context, plan actions, and use tools or memory to complete tasks with limited human help."
+  },
+  {
+    "id": "mcp-basics",
+    "question": "What is Model Context Protocol?",
+    "reference": "Model Context Protocol is a standard way for AI assistants to connect to tools, resources, and context providers."
+  },
+  {
+    "id": "rag-hallucination",
+    "question": "How does RAG reduce hallucination?",
+    "reference": "RAG reduces hallucination by retrieving relevant external context and grounding the answer in that context instead of relying only on the model's internal memory."
+  }
+]
