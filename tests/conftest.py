@@ -14,7 +14,13 @@ if str(SRC_ROOT) not in sys.path:
 from aiqa_testing.client import build_embeddings, build_evaluator_llm, is_rag_api_available
 from aiqa_testing.config import Settings, load_settings
 from aiqa_testing.datasets import load_test_cases
-from aiqa_testing.reporting import build_summary, write_summary
+from aiqa_testing.reporting import (
+    build_consolidated_summary,
+    build_summary,
+    write_consolidated_html_report,
+    write_html_report,
+    write_summary,
+)
 
 def pytest_configure(config: pytest.Config) -> None:
     config._aiqa_metrics = []
@@ -48,7 +54,11 @@ def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:
         metrics=session.config._aiqa_metrics,
         test_outcomes=session.config._aiqa_outcomes,
     )
+    consolidated = build_consolidated_summary(summary)
     write_summary(settings.report_file, summary)
+    write_html_report(settings.html_report_file, summary)
+    write_summary(settings.consolidated_report_file, consolidated)
+    write_consolidated_html_report(settings.consolidated_html_report_file, consolidated)
 
 
 @pytest.fixture(scope="session")

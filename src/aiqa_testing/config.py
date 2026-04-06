@@ -15,6 +15,9 @@ class Settings:
     project_root: Path
     dataset_path: Path
     report_file: Path
+    html_report_file: Path
+    consolidated_report_file: Path
+    consolidated_html_report_file: Path
     rag_api_base_url: str
     rag_top_k: int
     rag_timeout_seconds: int
@@ -31,6 +34,9 @@ class Settings:
         data["project_root"] = str(self.project_root)
         data["dataset_path"] = str(self.dataset_path)
         data["report_file"] = str(self.report_file)
+        data["html_report_file"] = str(self.html_report_file)
+        data["consolidated_report_file"] = str(self.consolidated_report_file)
+        data["consolidated_html_report_file"] = str(self.consolidated_html_report_file)
         return data
 
 
@@ -39,11 +45,21 @@ def load_settings() -> Settings:
     project_root = Path(__file__).resolve().parents[2]
     dataset_path = project_root / os.getenv("AIQA_DATASET_PATH", "datasets/test_cases.json")
     report_file = project_root / os.getenv("AIQA_REPORT_FILE", "reports/latest-summary.json")
+    html_report_file = project_root / os.getenv("AIQA_HTML_REPORT_FILE", "reports/report.html")
+    consolidated_report_file = project_root / os.getenv(
+        "AIQA_CONSOLIDATED_REPORT_FILE", "reports/consolidated-summary.json"
+    )
+    consolidated_html_report_file = project_root / os.getenv(
+        "AIQA_CONSOLIDATED_HTML_REPORT_FILE", "reports/consolidated-report.html"
+    )
 
     return Settings(
         project_root=project_root,
         dataset_path=dataset_path,
         report_file=report_file,
+        html_report_file=html_report_file,
+        consolidated_report_file=consolidated_report_file,
+        consolidated_html_report_file=consolidated_html_report_file,
         rag_api_base_url=os.getenv("RAG_API_BASE_URL", "http://localhost:8000"),
         rag_top_k=int(os.getenv("RAG_TOP_K", "3")),
         rag_timeout_seconds=int(os.getenv("RAG_TIMEOUT_SECONDS", "30")),
